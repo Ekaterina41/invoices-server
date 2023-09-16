@@ -49,9 +49,8 @@ public class InvioiceController {
     public ResponseEntity<Invoice> getInvoice(@PathVariable("id") Integer id) {
         Optional<Invoice> invoice = invoiceService.getInvoice(id);
 
-        return invoice.isPresent()
-                ? new ResponseEntity<>(invoice.get(), HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return invoice.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
