@@ -1,6 +1,6 @@
 package com.myprojects.invoice.repository;
 
-import com.myprojects.invoice.model.Invoice;
+import com.myprojects.invoice.entity.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

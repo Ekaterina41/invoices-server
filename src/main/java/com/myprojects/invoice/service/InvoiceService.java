@@ -1,6 +1,6 @@
 package com.myprojects.invoice.service;
 
-import com.myprojects.invoice.model.Invoice;
+import com.myprojects.invoice.entity.Invoice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

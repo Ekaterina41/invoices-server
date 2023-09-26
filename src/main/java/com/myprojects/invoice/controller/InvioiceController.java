@@ -1,6 +1,6 @@
 package com.myprojects.invoice.controller;
 
-import com.myprojects.invoice.model.Invoice;
+import com.myprojects.invoice.entity.Invoice;
 import com.myprojects.invoice.service.InvoiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

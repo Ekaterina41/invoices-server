@@ -1,7 +1,7 @@
 package com.myprojects.invoice.service;
 
-import com.myprojects.invoice.model.Invoice;
-import com.myprojects.invoice.model.InvoiceEntry;
+import com.myprojects.invoice.entity.Invoice;
+import com.myprojects.invoice.entity.InvoiceEntry;
 import com.myprojects.invoice.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
