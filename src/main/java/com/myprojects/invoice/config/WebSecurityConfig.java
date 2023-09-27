@@ -30,12 +30,19 @@ public class WebSecurityConfig {
 
     private final JwtAuthFilter authFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final UserDetailsService jwtUserDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return jwtUserDetailsService;
-    }
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        // Configure user details service for AuthenticationManager
+//        // and inject PasswordEncoder
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//
+//    }
+
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return userDetailsService;
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -50,7 +57,7 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -60,8 +67,9 @@ public class WebSecurityConfig {
         return http.authorizeHttpRequests(authorizeHttpRequests -> {
                     authorizeHttpRequests
                             // don't authenticate this particular request
-                            .requestMatchers("/auth/login", "/swagger-ui/**",
-                                    "/v3/api-docs/**").permitAll()
+                            .requestMatchers("/auth/login", "/auth/register",
+                                    "/swagger-ui/**", "/v3/api-docs/**")
+                            .permitAll()
                             // all other requests need to be authenticated
                             .anyRequest().authenticated();
 //                            .requestMatchers("/**").hasRole("USER")

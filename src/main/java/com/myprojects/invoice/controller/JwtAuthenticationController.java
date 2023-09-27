@@ -1,6 +1,8 @@
 package com.myprojects.invoice.controller;
 
 import com.myprojects.invoice.entity.AuthRequest;
+import com.myprojects.invoice.entity.UserDAO;
+import com.myprojects.invoice.service.UserService;
 import com.myprojects.invoice.utils.JwtTokenUtil;
 import com.myprojects.invoice.service.JwtUserDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class JwtAuthenticationController {
 
-    private final JwtUserDetailsService userDetailsService;
+    private final UserService userService;
+    private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
@@ -47,5 +51,16 @@ public class JwtAuthenticationController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+
+    /**
+     * Register new user.
+     * @param user user data
+     * @return saved user data
+     */
+    @Operation(summary = "Register new user.")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<UserDAO> saveUser(@RequestBody UserDAO user) {
+        return ResponseEntity.ok(userService.save(user));
     }
 }

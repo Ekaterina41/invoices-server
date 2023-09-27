@@ -1,6 +1,6 @@
 package com.myprojects.invoice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -13,7 +13,6 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @Entity
-@JsonIgnoreProperties("invoice")
 public class InvoiceEntry {
 
     @Id
@@ -32,6 +31,7 @@ public class InvoiceEntry {
     @Schema(description = "Total cost of services", example = "3000")
     private int cost;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="invoice_id", nullable=false)
     private Invoice invoice;
